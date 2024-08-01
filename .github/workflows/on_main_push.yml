@@ -12,4 +12,4 @@ jobs:
       flag_1: true
       flag_2: false
       target_environment: test_env_1
-      secrets: inherit
+#      secrets: inherit
