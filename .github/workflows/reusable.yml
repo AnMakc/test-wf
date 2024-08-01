@@ -53,21 +53,10 @@ jobs:
 
     steps:
       - name: Debug
-        run: echo ${{ toJSON(github) }}
-
-  job_debug_2:
-    runs-on: ubuntu-latest
-
-    continue-on-error: true
-
-    needs: job_1
-
-    steps:
-      - name: Debug
-        run: echo ${{ toJSON(inputs) }}
+        run: echo '${{ toJSON(inputs) }}'
 
   job_2_a:
-    if: ${{ fromJSON(github.event.inputs.flag_1) }}
+    if: ${{ fromJSON(inputs.flag_1) }}
     needs: job_1
 
     runs-on: ubuntu-latest
@@ -82,7 +71,7 @@ jobs:
         run: echo "Flag 1 step 2a" && echo "Env secret ${{ secrets.env_secret_1 }}"
 
   job_2_b:
-    if: ${{ fromJSON(github.event.inputs.flag_2) }}
+    if: ${{ fromJSON(inputs.flag_2) }}
     needs: job_1
 
     runs-on: ubuntu-latest
