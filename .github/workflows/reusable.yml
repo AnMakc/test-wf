@@ -46,6 +46,7 @@ jobs:
 
 
   job_2_a:
+    if: ${{ github.event.inputs.flag_1 == 'true' }}
     needs: job_1
 
     runs-on: ubuntu-latest
@@ -54,14 +55,13 @@ jobs:
 
     steps:
       - name: Step 1
-        if: ${{ github.event.inputs.flag_1 == 'true' }}
         run: echo "Flag 1 step 2a" && echo "Env var ${{ vars.env_var_1 }}"
 
       - name: Step 2
-        if: ${{ github.event.inputs[matrix.flag_name] == 'true' }}
         run: echo "Flag 1 step 2a" && echo "Env secret ${{ secrets.env_secret_1 }}"
 
   job_2_b:
+    if: ${{ github.event.inputs.flag_2 == 'true' }}
     needs: job_1
 
     runs-on: ubuntu-latest
@@ -70,10 +70,8 @@ jobs:
 
     steps:
       - name: Step 1
-        if: ${{ github.event.inputs.flag_2 == 'true' }}
         run: echo "Flag 1 step 2b" && echo "Env var ${{ vars.env_var_2 }}"
 
       - name: Step 2
-        if: ${{ github.event.inputs[matrix.flag_name] == 'true' }}
         run: echo "Flag 1 step 2b" && echo "Env secret ${{ secrets.env_secret_2 }}"
 
