@@ -1,0 +1,15 @@
+name: On dev main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call_reusable_workflow:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      flag_1: false
+      flag_2: true
+      target_environment: test_env_2
+      secrets: inherit

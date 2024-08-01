@@ -1,0 +1,73 @@
+name: Reusable Workflow
+
+env:
+  REUSABLE_ENV: "reusable"
+
+on:
+  workflow_call:
+    inputs:
+      flag_1:
+        type: boolean
+        required: true
+        description: 'Flag 1'
+      flag_2:
+        type: boolean
+        required: true
+        description: 'Flag 2'
+      target_environment:
+        type: string
+        description: 'Target environment to deploy to'
+
+  workflow_dispatch:
+    inputs:
+      flag_1:
+        type: boolean
+        required: true
+        description: 'Flag 1'
+      flag_2:
+        type: boolean
+        required: true
+        description: 'Flag 2'
+      target_environment:
+        type: choice
+        description: 'Target environment to deploy to'
+        options:
+          - test_env_1
+          - test_env_2
+
+
+jobs:
+  job_1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1
+        run: echo "Job 1 Step 1"
+
+
+  job_2:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    environment: ${{ github.event.inputs.target_environment }}
+
+    strategy:
+      matrix:
+        include:
+          - flag_name: flag_1
+            env_var: ${{ vars.env_var_1 }}
+            env_secret: ${{ secrets.env_secret_1 }}
+
+          - flag_name: flag_2
+            env_var: ${{ vars.env_var_2 }}
+            env_secret: ${{ secrets.env_secret_2 }}
+
+    steps:
+      - name: Step 1
+        if: ${{ github.event.inputs[matrix.flag_name] == 'true' }}
+        run: echo "Flag 1 step 2" && echo "Env var ${{ github.event.inputs[matrix.env_var] }}"
+
+      - name: Step 2
+        if: ${{ github.event.inputs[matrix.flag_name] == 'true' }}
+        run: echo "Flag 1 step 2" && echo "Env secret ${{ github.event.inputs[matrix.env_secret] }}"
