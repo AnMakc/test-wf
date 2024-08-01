@@ -51,10 +51,10 @@ jobs:
 
     steps:
       - name: Debug
-        run: echo {{ toJSON(github) }}
+        run: echo ${{ toJSON(github) }}
 
       - name: Debug 2
-        run: echo {{ toJSON(github.event.inputs) }}
+        run: echo ${{ toJSON(github.event.inputs) }}
 
   job_2_a:
     if: ${{ fromJSON(github.event.inputs.flag_1) }}
