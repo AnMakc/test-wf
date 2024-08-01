@@ -18,6 +18,10 @@ on:
         type: string
         description: 'Target environment to deploy to'
 
+    secrets:
+      - env_secret_1
+      - env_secret_2
+
   workflow_dispatch:
     inputs:
       flag_1:
