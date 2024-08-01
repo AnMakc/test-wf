@@ -55,7 +55,15 @@ jobs:
       - name: Debug
         run: echo ${{ toJSON(github) }}
 
-      - name: Debug 2
+  job_debug_2:
+    runs-on: ubuntu-latest
+
+    continue-on-error: true
+
+    needs: job_1
+
+    steps:
+      - name: Debug
         run: echo ${{ toJSON(inputs) }}
 
   job_2_a:
