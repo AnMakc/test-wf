@@ -56,18 +56,18 @@ jobs:
       matrix:
         include:
           - flag_name: flag_1
-            env_var: ${{ vars.env_var_1 }}
-            env_secret: ${{ secrets.env_secret_1 }}
+            env_var_name: env_var_1
+            env_secret_name: env_secret_1
 
           - flag_name: flag_2
-            env_var: ${{ vars.env_var_2 }}
-            env_secret: ${{ secrets.env_secret_2 }}
+            env_var_name: env_var_2
+            env_secret_name: env_secret_2
 
     steps:
       - name: Step 1
         if: ${{ github.event.inputs[matrix.flag_name] == 'true' }}
-        run: echo "Flag 1 step 2" && echo "Env var ${{ github.event.inputs[matrix.env_var] }}"
+        run: echo "Flag 1 step 2" && echo "Env var ${{ vars[matrix.env_var_name] }}"
 
       - name: Step 2
         if: ${{ github.event.inputs[matrix.flag_name] == 'true' }}
-        run: echo "Flag 1 step 2" && echo "Env secret ${{ github.event.inputs[matrix.env_secret] }}"
+        run: echo "Flag 1 step 2" && echo "Env secret ${{ secrets[matrix.env_secret_name] }}"
