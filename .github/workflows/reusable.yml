@@ -47,6 +47,8 @@ jobs:
   job_debug:
     runs-on: ubuntu-latest
 
+    continue-on-error: true
+
     needs: job_1
 
     steps:
@@ -54,7 +56,7 @@ jobs:
         run: echo ${{ toJSON(github) }}
 
       - name: Debug 2
-        run: echo ${{ toJSON(github.event.inputs) }}
+        run: echo ${{ toJSON(inputs) }}
 
   job_2_a:
     if: ${{ fromJSON(github.event.inputs.flag_1) }}
