@@ -19,8 +19,12 @@ on:
         description: 'Target environment to deploy to'
 
     secrets:
-      - env_secret_1
-      - env_secret_2
+      env_secret_1:
+        required: false
+        description: 'Environment secret 1'
+      env_secret_2:
+        required: false
+        description: 'Environment secret 2'
 
   workflow_dispatch:
     inputs:
