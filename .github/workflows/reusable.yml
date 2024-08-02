@@ -46,6 +46,7 @@ on:
 
 jobs:
   job_1:
+    name: Job 1
     runs-on: ubuntu-latest
 
     steps:
@@ -64,6 +65,7 @@ jobs:
         run: echo '${{ toJSON(inputs) }}'
 
   job_2_a:
+    name: Job 2a
     if: ${{ fromJSON(inputs.flag_1) }}
     needs: job_1
 
@@ -79,6 +81,7 @@ jobs:
         run: echo "Flag 1 step 2a" && echo "Env secret ${{ secrets.env_secret_1 }}"
 
   job_2_b:
+    name: Job 2b
     if: ${{ fromJSON(inputs.flag_2) }}
     needs: job_1
 
